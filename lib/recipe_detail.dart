@@ -47,13 +47,19 @@ class _RecipeDetailState extends State<RecipeDetail> {
                       itemBuilder: (BuildContext context, int index){
                       final ingredient = widget.recipe.ingredients[index];
 
-                        return Text(
-                          '${ingredient.quantity * _sliderval}' ' '
-                            '${ingredient.measure}'  ' '
-                            '${ingredient.name}'
-                        );
-                      },
+                      return Text(
+                            '${ingredient.quantity * _sliderval}' ' '
+                                '${ingredient.measure}'  ' '
+                                '${ingredient.name}'
+
+                      );
+
+
+
+                        },
+
                   ),
+                
               ),
 
              Slider(

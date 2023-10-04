@@ -1,14 +1,18 @@
+import 'package:flutter/cupertino.dart';
+
 class Recipe {
   String label;
   String imageUrl;
 
 int servings;
 List<Ingredient> ingredients;
+List<Cookdir> cookdirs;
 
   Recipe(this.label,
       this.imageUrl,
       this.servings,
       this.ingredients,
+      this.cookdirs,
       );
 
 //TODO: ADD List<RECIPES> here
@@ -25,7 +29,10 @@ static List<Recipe> samples = [
       Ingredient(3, 'bulbs', 'Onions'),
       Ingredient(3, 'cubes', 'Maggi'),
       Ingredient(1, 'tablespoon', 'thyme leaves')
-    ]
+    ],
+      [
+        Cookdir('Cooking Directions', 'Lorem Ipsum', '20mins')
+      ]
   ),
   Recipe('Efo Riro',
       'Assets/EfoRiro.jpg',
@@ -40,6 +47,9 @@ static List<Recipe> samples = [
       Ingredient(2, 'cubes', 'Maggi'),
       Ingredient(1, 'to taste', 'salt and ata rodo(Scotch bonnet peppers)'),
       Ingredient(1, 'cookspoon', 'Iru/Locust beans'),
+    ],
+    [
+      Cookdir('Cooking Directions', 'Lorem Ipsum', '20mins')
     ]
   ),
   Recipe('Grilled Chickhen',
@@ -51,6 +61,11 @@ static List<Recipe> samples = [
       Ingredient(1, 'tablespoon', 'thyme leaves'),
       Ingredient(2, 'cubes', 'Maggi'),
       Ingredient(1, 'to taste','salt'),
+    ],
+    [
+
+        Cookdir('Cooking Directions', 'Lorem Ipsum', '20mins')
+
     ]
   ),
   Recipe('Plantain Chips',
@@ -60,7 +75,10 @@ static List<Recipe> samples = [
       Ingredient(5, 'pieces', 'Unripe plantains'),
       Ingredient(5, 'cookspoons', 'vegetable oil'),
       Ingredient(1, 'tablespoon', 'salt (to taste)'),
-    ]
+    ],
+      [
+        Cookdir('Cooking Directions', 'Lorem Ipsum', '20mins')
+      ]
   ),
 ];
 }
@@ -74,5 +92,18 @@ class Ingredient {
       this.quantity,
       this.measure,
       this.name,
+      );
+}
+
+class Cookdir {
+  String header;
+  String cooktime;
+  String directions;
+
+
+  Cookdir(
+      this.header,
+      this.directions,
+      this.cooktime,
       );
 }
