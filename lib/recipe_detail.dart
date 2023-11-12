@@ -7,7 +7,7 @@ class RecipeDetail extends StatefulWidget {
   const RecipeDetail({
     Key? key,
     required this.recipe,
-}) : super(key: key);
+  }) : super(key: key);
 
   @override
   State<RecipeDetail> createState() {
@@ -16,7 +16,7 @@ class RecipeDetail extends StatefulWidget {
 }
 
 class _RecipeDetailState extends State<RecipeDetail> {
-  int _sliderval =1;
+  int _sliderval = 1;
 
   @override
   Widget build(BuildContext context) {
@@ -25,6 +25,8 @@ class _RecipeDetailState extends State<RecipeDetail> {
         title: Text(widget.recipe.label),
       ),
       body: SafeArea(
+        child: SingleChildScrollView(
+          // Wrap the Column with SingleChildScrollView
           child: Column(
             children: <Widget>[
               SizedBox(
@@ -37,50 +39,66 @@ class _RecipeDetailState extends State<RecipeDetail> {
               const SizedBox(
                 height: 4,
               ),
-              Text(widget.recipe.label,
-              style: const TextStyle(fontSize: 18),
+              Text(
+                widget.recipe.label,
+                style: const TextStyle(fontSize: 18),
               ),
-              Expanded(
-                  child: ListView.builder(
-                    padding: const EdgeInsets.all(7.0),
-                      itemCount: widget.recipe.ingredients.length,
-                      itemBuilder: (BuildContext context, int index){
-                      final ingredient = widget.recipe.ingredients[index];
+              ListView.builder(
+                shrinkWrap:
+                    true, // Make sure the ListView doesn't try to scroll
+                physics:
+                    const NeverScrollableScrollPhysics(), // Disable scrolling for the inner ListView
+                padding: const EdgeInsets.all(7.0),
+                itemCount: widget.recipe.ingredients.length,
+                itemBuilder: (BuildContext context, int index) {
+                  final ingredient = widget.recipe.ingredients[index];
 
-                      return Text(
-                            '${ingredient.quantity * _sliderval}' ' '
-                                '${ingredient.measure}'  ' '
-                                '${ingredient.name}'
-
-                      );
-
-
-
-                        },
-
+                  return Text('${ingredient.quantity * _sliderval}'
+                      ' '
+                      '${ingredient.measure}'
+                      ' '
+                      '${ingredient.name}');
+                },
+              ),
+              Slider(
+                min: 1,
+                max: 10,
+                divisions: 9,
+                label: '${_sliderval * widget.recipe.servings} servings',
+                value: _sliderval.toDouble(),
+                onChanged: (newValue) {
+                  setState(() {
+                    _sliderval = newValue.round();
+                  });
+                },
+                activeColor: Colors.green,
+                inactiveColor: Colors.grey,
+                thumbColor: Colors.black,
+              ),
+              const SizedBox(height: 16),
+              const Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Text(
+                  'Cooking Directions',
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
                   ),
-                
+                ),
               ),
-
-             Slider(
-                  min: 1,
-                 max: 10,
-                 divisions: 9,
-                 label: '${_sliderval * widget.recipe.servings} servings',
-                 value: _sliderval.toDouble(),
-
-                 onChanged: (newValue) {
-                    setState(() {
-                      _sliderval = newValue.round();
-                    });
-                 },
-             activeColor: Colors.green,
-               inactiveColor: Colors.grey,
-               thumbColor: Colors.white,
-             )
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  widget.recipe.cookingDirections,
+                  style: const TextStyle(
+                    fontSize: 14,
+                  ),
+                ),
+              ),
             ],
-          )
-      )
+          ),
+        ),
+      ),
     );
   }
 }
